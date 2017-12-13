@@ -114,14 +114,14 @@ if no_errors:
 
 
 #just for testing purposes assign appropriate replace filename with user_image once complete
-filename = '/Users/wjordan/Downloads/Pandora_V1/Baroque/37.jpg'
+filename = user_image.strip(' ')
 class_prediction, class_probabilities = predict_style(filename, 3)
 img = cv2.imread(filename)
 text1 = str(class_prediction) + ": "
 text2 = str(class_probabilities)
 #putText(image, text, position, font, font size, font color, font thickness)
-cv2.putText(img, text1, (10,450), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255,255,255), 2)
-cv2.putText(img, text2, (10,500), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255,255,255), 2)
+cv2.putText(img, text1, (10,35), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255,255,255), 2)
+cv2.putText(img, text2, (10,85), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255,255,255), 2)
 cv2.imshow("Predictions", img)
 cv2.waitKey()
 
