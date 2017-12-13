@@ -4,6 +4,7 @@ import subprocess
 
 def find_problem_images(shell_prompt):
 	output = output.splitlines()
+	#you normally would not want to use shell=True
 	output = subprocess.check_output(shell_prompt, shell=True)
 	for file in output:
 		try:
@@ -12,3 +13,5 @@ def find_problem_images(shell_prompt):
 			print(file)
 
 find_problem_images('ls wgaScraping/*')
+find_problem_images('ls artukscrapingartists/*')
+find_problem_images('ls artukscraping/*')
