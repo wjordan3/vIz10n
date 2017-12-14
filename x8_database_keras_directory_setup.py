@@ -13,7 +13,7 @@ def make_directory(directory):
 	if not os.path.exists(directory):
 		os.makedirs(directory)
 
-def create_image_copy(file_names , target_directory, style, train_number=400, test_number=200):
+def create_image_copy(file_names , target_directory, style, train_number=530, test_number=160):
 	#file_names = os.listdir(directory)
 	target_directory = target_directory + '/'
 
@@ -50,7 +50,7 @@ c.execute('''
 		    JOIN paintings p ON f.painting_id = p.id
 		    WHERE style IS NOT ''
 		    GROUP BY style
-		    HAVING count(image_filename) >= 344) 
+		    HAVING count(image_filename) >= 690) 
         ''')
 style_file_names = set(c.fetchall())
 
@@ -64,7 +64,6 @@ for key in dict_style_file_names.keys():
 	create_image_copy(dict_style_file_names[key], 'keras/style', key)
 
 
-
 c.execute('''
 		SELECT artist_name, image_filename
 		FROM fact_table f
@@ -76,7 +75,7 @@ c.execute('''
 		        JOIN artists a ON f.artist_id = a.id
 		        JOIN paintings p ON f.painting_id = p.id
 		    GROUP BY artist_name
-		    HAVING count(image_filename) >= 117
+		    HAVING count(image_filename) >= 120
 		    )
          ''')
 
@@ -84,9 +83,9 @@ artist_file_names = set(c.fetchall())
 
 dict_artist_file_names = defaultdict(list)
 
-for item in style_file_names:
-    #dict_style_file_names[item[0]].append(file_directory+ '/'+ item[1])
-    dict_style_file_names[item[0].encode('utf-8').strip()].append(item[1].encode('utf-8').strip())
+for item in artist_file_names:
+    dict_artist_file_names[item[0].encode('utf-8').strip()].append(item[1].encode('utf-8').strip())
 
-for key in dict_style_file_names.keys():
-	create_image_copy(dict_style_file_names[key], 'keras/artists', key)
+for key in dict_artist_file_names.keys():
+	create_image_copy(dict_artist_file_names[key], 'keras/artist', key, train_number=100, test_number=20)
+
